@@ -90,6 +90,7 @@
     </ApplicationDefinition>
     <Compile Include="Client.cs" />
     <Compile Include="DataChange.cs" />
+    <Compile Include="DataListChanges.cs" />
     <Compile Include="IConcultant.cs" />
     <Compile Include="IManager.cs" />
     <Compile Include="NewClients.cs" />

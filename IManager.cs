@@ -8,7 +8,7 @@ namespace Company
 {
     interface IManager
     {
-
+        public void AddNewRecord();
 
 
     }

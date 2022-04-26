@@ -112,10 +112,10 @@
                         <DataTemplate>
                             <Border BorderBrush="Black" BorderThickness="0 0 0 1" Padding="0" Margin="0">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock x:Name="DataTime" Text="{Binding LastName}" Width="120"  Margin="0" TextAlignment="Center"/>
-                                    <TextBlock x:Name="Data" Text="{Binding FirstName}" Width="120" Margin="0" TextAlignment="Center"/>
-                                    <TextBlock x:Name="Type" Text="{Binding FathersName}" Width="120" Margin="0" TextAlignment="Center"/>
-                                    <TextBlock x:Name="Position" Text="{Binding Phone}" Width="120" Margin="0" TextAlignment="Center"/>
+                                    <TextBlock x:Name="DataTime" Text="{Binding dateTime}" Width="120"  Margin="0" TextAlignment="Center"/>
+                                    <TextBlock x:Name="Data" Text="{Binding DataChangeList}" Width="120" Margin="0" TextAlignment="Center"/>
+                                    <TextBlock x:Name="Type" Text="{Binding Type}" Width="120" Margin="0" TextAlignment="Center"/>
+                                    <TextBlock x:Name="Position" Text="{Binding Position}" Width="120" Margin="0" TextAlignment="Center"/>
                                 </StackPanel>
                             </Border>
                         </DataTemplate>

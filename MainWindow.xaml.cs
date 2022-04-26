@@ -23,10 +23,12 @@ namespace Company
     {
         string fileName = "\\Clients.json";
         NewClients newClients;
+        DataListChanges newdataListChanges;
         List<Client> clients = new List<Client>();
         Manager newManager = new Manager();
         Consultant newConsultant = new Consultant();
-        Client emp;
+        DataChange newDataChange = new DataChange();  
+        Client client;
         string root;
         string name;
         string textFromFile;
@@ -38,6 +40,7 @@ namespace Company
             InitializeComponent();
 
             newClients = new NewClients(this);
+            newdataListChanges = new DataListChanges(this);
 
             root = newManager.ConvertToJson(newClients.Clients);
 
@@ -69,7 +72,6 @@ namespace Company
                         }
                     case "Consultant":
                         {
-
                             clientItems.ItemsSource = null;
                             textFromFile = newConsultant.ReadFromFile(fileName);
                             position = false;
@@ -94,9 +96,9 @@ namespace Company
 
         private void Row_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            emp = (Client)clientItems.SelectedItem;
+            client = (Client)clientItems.SelectedItem;
 
-            if (emp == null)
+            if (client == null)
             {
                 return;
             }
@@ -111,11 +113,11 @@ namespace Company
                         phone.IsEnabled = true;
                         passportNumber.IsEnabled = true;
 
-                        firstName.Text = emp.FirstName;
-                        lastName.Text = emp.LastName;
-                        fathersName.Text = emp.FathersName;
-                        phone.Text = emp.Phone.ToString();
-                        passportNumber.Text = emp.PassportNumber;
+                        firstName.Text = client.FirstName;
+                        lastName.Text = client.LastName;
+                        fathersName.Text = client.FathersName;
+                        phone.Text = client.Phone.ToString();
+                        passportNumber.Text = client.PassportNumber;
                         AddClient.IsEnabled = true;
                         break;
                     }
@@ -124,7 +126,7 @@ namespace Company
                         firstName.IsEnabled = false;
                         lastName.IsEnabled = false;
                         fathersName.IsEnabled = false;
-                        phone.Text = emp.Phone.ToString();
+                        phone.Text = client.Phone.ToString();
                         passportNumber.IsEnabled = false;
                         AddClient.IsEnabled = false;
                         break;
@@ -253,6 +255,9 @@ namespace Company
                                 client.Phone = phoneNumber;
                                 clientItems.ItemsSource = null;
                                 clientItems.ItemsSource = clients;
+
+                                recordItems.ItemsSource = newdataListChanges.DataChanges;
+
                                 break;
                             }
                         default:

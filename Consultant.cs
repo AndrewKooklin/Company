@@ -13,7 +13,7 @@ using System.Windows;
 
 namespace Company
 {
-    public class Consultant
+    public class Consultant : IConcultant
     {
         string root;
         public Consultant()
