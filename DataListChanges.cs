@@ -17,6 +17,11 @@ namespace Company
             this.w = W;
             this.DataChanges = new ObservableCollection<DataChange>();
 
+            for (int i = 1; i < 3; i++)
+            {
+                DataChange newDataChange = new DataChange();
+                this.DataChanges.Add(newDataChange);
+            }
         }
     }
 }

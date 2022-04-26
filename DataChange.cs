@@ -26,7 +26,15 @@ namespace Company
 
         public DataChange()
         {
-
+            DateTime dateTime = DateTime.Now;
+            this.dateTime = dateTime;
+            string add = "lastName, firstName";
+            this.DataChangeList = new List<string>();
+            this.DataChangeList.Add(add);
+            string type = "add";
+            this.Type = type;
+            string position = "manager";
+            this.Position = position;
         }
 
     }

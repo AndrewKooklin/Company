@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:Company"
         xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="Company" Height="550" Width="1250" FontSize="14" Background="#FFCCF6EE">
+        Title="Company" Height="550" Width="1300" FontSize="14" Background="#FFCCF6EE">
 
     <Grid Background="#FFD1F0F7">
         <Grid.RowDefinitions>
@@ -17,14 +17,14 @@
             <RowDefinition Height="100*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="2.5*"></ColumnDefinition>
             <ColumnDefinition Width="10*"></ColumnDefinition>
-            <ColumnDefinition Width="8*"></ColumnDefinition>
+            <ColumnDefinition Width="9*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Row="1" Margin="0,0,5,0">
-            <Label Content="Должность" FontSize="12" Margin="15,20,43.4,0"/>
-            <ComboBox x:Name="SelectPosition" HorizontalAlignment="Left" VerticalAlignment="Top" Width="114" Height="28" BorderBrush="#FF1A0874" RenderTransformOrigin="1.148,1.535" Margin="15,0,0,0" SelectionChanged="OnSelectedChanged">
+            <Label Content="Должность" FontSize="12" Margin="10,10,5,0"/>
+            <ComboBox x:Name="SelectPosition" HorizontalAlignment="Left" VerticalAlignment="Top" Width="114" Height="28" BorderBrush="#FF1A0874" RenderTransformOrigin="1.148,1.535" Margin="10,0,0,0" SelectionChanged="OnSelectedChanged">
                 <ComboBox.Background>
                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                         <GradientStop Color="#FFF0F0F0" Offset="0"/>
@@ -40,25 +40,25 @@
 
         <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Margin="0">
             <Border BorderThickness="1,0,0,1" BorderBrush="#FF051374">
-                <Label  Content="Фамилия"  Width="120" BorderBrush="#FF0C097A" Foreground="#FF0F10A0" Background="#FFC8D8FF" FontSize="14" FontWeight="Medium" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <Label  Content="Фамилия"  Width="111" BorderBrush="#FF0C097A" Foreground="#FF0F10A0" Background="#FFC8D8FF" FontSize="14" FontWeight="Medium" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             </Border>
             <Border BorderThickness="1,0,0,1" BorderBrush="#FF051374">
-                <Label  Content="Имя" Width="120" BorderBrush="#FF0C097A" Foreground="#FF0F10A0" Background="#FFC8D8FF" FontSize="14" FontWeight="Medium" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <Label  Content="Имя" Width="111" BorderBrush="#FF0C097A" Foreground="#FF0F10A0" Background="#FFC8D8FF" FontSize="14" FontWeight="Medium" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             </Border>
             <Border BorderThickness="1,0,0,1" BorderBrush="#FF051374">
-                <Label  Content="Отчество" Width="120" BorderBrush="#FF0C097A" Foreground="#FF0F10A0" Background="#FFC8D8FF" FontSize="14" FontWeight="Medium" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <Label  Content="Отчество" Width="112" BorderBrush="#FF0C097A" Foreground="#FF0F10A0" Background="#FFC8D8FF" FontSize="14" FontWeight="Medium" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             </Border>
             <Border BorderThickness="1,0,0,1" BorderBrush="#FF051374">
-                <Label  Content="Телефон" Width="120" BorderBrush="#FF0C097A" Foreground="#FF0F10A0" Background="#FFC8D8FF" FontSize="14" FontWeight="Medium" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <Label  Content="Телефон" Width="112" BorderBrush="#FF0C097A" Foreground="#FF0F10A0" Background="#FFC8D8FF" FontSize="14" FontWeight="Medium" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             </Border>
             <Border BorderThickness="1,0,1,1" BorderBrush="#FF051374">
-                <Label  Content="Паспорт" Width="120" BorderBrush="#FF0C097A" Foreground="#FF0F10A0" Background="#FFC8D8FF" FontSize="14" FontWeight="Medium" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <Label  Content="Паспорт" Width="112" BorderBrush="#FF0C097A" Foreground="#FF0F10A0" Background="#FFC8D8FF" FontSize="14" FontWeight="Medium" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             </Border>
         </StackPanel>
 
         <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal" Margin="15 0 0 0">
             <Border BorderThickness="1,0,0,1" BorderBrush="#FF051374">
-                <Label  Content="Дата и время"  Width="120" BorderBrush="#FF0C097A" Foreground="#FF0F10A0" Background="#FFC8D8FF" FontSize="14" FontWeight="Medium" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <Label  Content="Дата и время"  Width="130" BorderBrush="#FF0C097A" Foreground="#FF0F10A0" Background="#FFC8D8FF" FontSize="14" FontWeight="Medium" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             </Border>
             <Border BorderThickness="1,0,0,1" BorderBrush="#FF051374">
                 <Label  Content="Данные" Width="120" BorderBrush="#FF0C097A" Foreground="#FF0F10A0" Background="#FFC8D8FF" FontSize="14" FontWeight="Medium" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
@@ -66,7 +66,7 @@
             <Border BorderThickness="1,0,0,1" BorderBrush="#FF051374">
                 <Label  Content="Тип изменений" Width="120" BorderBrush="#FF0C097A" Foreground="#FF0F10A0" Background="#FFC8D8FF" FontSize="14" FontWeight="Medium" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             </Border>
-            <Border BorderThickness="1,0,0,1" BorderBrush="#FF051374">
+            <Border BorderThickness="1,0,1,1" BorderBrush="#FF051374">
                 <Label  Content="Должность" Width="120" BorderBrush="#FF0C097A" Foreground="#FF0F10A0" Background="#FFC8D8FF" FontSize="14" FontWeight="Medium" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             </Border>
         </StackPanel>
@@ -85,11 +85,11 @@
                         <DataTemplate>
                             <Border BorderBrush="Black" BorderThickness="0 0 0 1" Padding="0" Margin="0">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock x:Name="LastName" Text="{Binding LastName}" Width="120"  Margin="0" TextAlignment="Center"/>
-                                    <TextBlock x:Name="FirstName" Text="{Binding FirstName}" Width="120" Margin="0" TextAlignment="Center"/>
-                                    <TextBlock x:Name="FathersName" Text="{Binding FathersName}" Width="120" Margin="0" TextAlignment="Center"/>
-                                    <TextBlock x:Name="Phone" Text="{Binding Phone}" Width="120" Margin="0" TextAlignment="Center"/>
-                                    <TextBlock x:Name="PassportNumber" Text="{Binding PassportNumber}" Width="120" Margin="0" TextAlignment="Center"/>
+                                    <TextBlock x:Name="LastName" Text="{Binding LastName}" Width="110"  Margin="0" TextAlignment="Center"/>
+                                    <TextBlock x:Name="FirstName" Text="{Binding FirstName}" Width="110" Margin="0" TextAlignment="Center"/>
+                                    <TextBlock x:Name="FathersName" Text="{Binding FathersName}" Width="110" Margin="0" TextAlignment="Center"/>
+                                    <TextBlock x:Name="Phone" Text="{Binding Phone}" Width="110" Margin="0" TextAlignment="Center"/>
+                                    <TextBlock x:Name="PassportNumber" Text="{Binding PassportNumber}" Width="110" Margin="0" TextAlignment="Center"/>
                                 </StackPanel>
                             </Border>
                         </DataTemplate>
@@ -125,13 +125,13 @@
         </ScrollViewer>
 
         <StackPanel Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Height="25" Margin="0,5,0,5" VerticalAlignment="Top" Width="912" Orientation="Horizontal">
-            <TextBox x:Name="lastName" Height="25" Margin="2 0 0 0" Text="Фамилия" Width="120" FontSize="14" VerticalContentAlignment="Center" BorderBrush="#FF03093C"/>
-            <TextBox x:Name="firstName" Height="25" Margin="2 0 0 0" Text="Имя" Width="120" FontSize="14" VerticalContentAlignment="Center" BorderBrush="#FF03093C"/>
-            <TextBox x:Name="fathersName" Height="25" Margin="2 0 0 0" Text="Отчество" Width="120" FontSize="14" VerticalContentAlignment="Center" BorderBrush="#FF03093C"/>
-            <TextBox x:Name="phone" Height="25" Margin="2 0 0 0" Text="Телефон" Width="120" FontSize="14" VerticalContentAlignment="Center" BorderBrush="#FF03093C" TextChanged="OnPhoneChanged"/>
-            <TextBox x:Name="passportNumber" Height="25" Margin="2 0 0 0" Text="Паспорт" Width="120" FontSize="14" VerticalContentAlignment="Center" BorderBrush="#FF03093C" TextChanged="OnPassportChanged"/>
+            <TextBox x:Name="lastName" Height="25" Margin="2 0 0 0" Text="Фамилия" Width="110" FontSize="14" VerticalContentAlignment="Center" BorderBrush="#FF03093C"/>
+            <TextBox x:Name="firstName" Height="25" Margin="2 0 0 0" Text="Имя" Width="110" FontSize="14" VerticalContentAlignment="Center" BorderBrush="#FF03093C"/>
+            <TextBox x:Name="fathersName" Height="25" Margin="2 0 0 0" Text="Отчество" Width="110" FontSize="14" VerticalContentAlignment="Center" BorderBrush="#FF03093C"/>
+            <TextBox x:Name="phone" Height="25" Margin="2 0 0 0" Text="Телефон" Width="110" FontSize="14" VerticalContentAlignment="Center" BorderBrush="#FF03093C" TextChanged="OnPhoneChanged"/>
+            <TextBox x:Name="passportNumber" Height="25" Margin="2 0 0 0" Text="Паспорт" Width="110" FontSize="14" VerticalContentAlignment="Center" BorderBrush="#FF03093C" TextChanged="OnPassportChanged"/>
         </StackPanel>
-        <StackPanel Grid.Row="3" Grid.Column="1" Margin="170,5,20,20" Orientation="Horizontal">
+        <StackPanel Grid.Row="3" Grid.Column="1" Margin="135,5,20,20" Orientation="Horizontal">
             <Button x:Name="SaveToListObjects" Content="Изменить" Width="105" Height="30" Margin="0,15,10,15" Padding="5 3" Cursor="Hand" Click="OnClickChange"/>
             <Button x:Name="SaveToFile" Content="Сохранить в файл" Width="140" Height="30" Margin="10,15,10,15" Padding="5 3" Cursor="Hand"/>
             <Button x:Name="AddClient" Content="Добавить клиента" Width="140" Height="30" Margin="10,15,10,15" Padding="5 3" Cursor="Hand" Click="OnClickAddClient"/>

@@ -27,11 +27,9 @@ namespace Company
         }
 
 
-        public DataChange AddNewRecord()
+        public void AddNewRecord()
         {
             DataChange newDataChange = new DataChange();
-
-            return newDataChange;
         }
     }  
 }

@@ -119,6 +119,11 @@ namespace Company
                         phone.Text = client.Phone.ToString();
                         passportNumber.Text = client.PassportNumber;
                         AddClient.IsEnabled = true;
+
+                        newManager.AddNewRecord();
+                        
+                        recordItems.ItemsSource = null;
+
                         break;
                     }
                 case "Consultant":
@@ -238,6 +243,8 @@ namespace Company
                                 clientItems.ItemsSource = null;
                                 clientItems.ItemsSource = clients;
 
+                                recordItems.ItemsSource = newdataListChanges.DataChanges;
+
                                 break;
                             }
                         case "Consultant":
@@ -256,7 +263,7 @@ namespace Company
                                 clientItems.ItemsSource = null;
                                 clientItems.ItemsSource = clients;
 
-                                recordItems.ItemsSource = newdataListChanges.DataChanges;
+                                
 
                                 break;
                             }
