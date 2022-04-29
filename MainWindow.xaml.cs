@@ -1,17 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Collections.ObjectModel;
-using Newtonsoft.Json.Linq;
 using System.Windows.Media;
-using System.Drawing.Printing;
-using Newtonsoft.Json;
-using System.Diagnostics;
-using System.IO;
 using System.Text.RegularExpressions;
 
 namespace Company
@@ -150,14 +142,14 @@ namespace Company
                         fathersName.IsEnabled = true;
                         phone.IsEnabled = true;
                         passportNumber.IsEnabled = true;
+                        AddClient.IsEnabled = true;
 
                         firstName.Text = client.FirstName;
                         lastName.Text = client.LastName;
                         fathersName.Text = client.FathersName;
                         phone.Text = client.Phone.ToString();
                         passportNumber.Text = client.PassportNumber;
-                        AddClient.IsEnabled = true;
-
+                        
                         break;
                     }
                 case "Consultant":
@@ -316,7 +308,6 @@ namespace Company
                                 if (!String.IsNullOrEmpty(fieldsList))
                                 {
                                     changesList.ChangesList.Add(newConsultant.NewRecordChange(fieldsList, type, user));
-
                                 }
                                 else
                                 {
@@ -371,7 +362,8 @@ namespace Company
                 if (newManager.CheckIsNullOrEmpty(firstName.Text, "Имя")) return;
                 if (newManager.CheckIsNullOrEmpty(lastName.Text, "Фамилия")) return;
                 if (newManager.CheckIsNullOrEmpty(phone.Text, "Телефон")) return;
-                if (newManager.CheckIsNullOrEmpty(passportNumber.Text, "Паспорт")) return;
+                if (newManager.CheckIsNullOrEmpty(passportNumber.Text, 
+                    "Паспорт\" в формате \"1234-567890")) return;
 
                 bool parse = newManager.CheckParsePhone(phone.Text, out long phoneNumber);
                 if (parse && phoneNumber != 0)
@@ -393,8 +385,6 @@ namespace Company
 
                 clientItems.ItemsSource = null;
                 recordItems.ItemsSource = null;
-
-
 
                 var fieldsAdded = CheckFieldsAdded();
                 var newRecordAddClient = newManager.NewRecordAddClient(fieldsAdded, type, user);
@@ -471,7 +461,6 @@ namespace Company
                 {
                     case "Manager":
                         {
-
                             if (clientsList.ClientsList.Count <= 0)
                             {
                                 MessageBox.Show("Список клиентов пока пустой", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -498,7 +487,6 @@ namespace Company
                             textFromFileClients = newManager.ReadFromFile(fileNameClients);
                             if (!String.IsNullOrEmpty(textFromFileClients))
                             {
-
                                 clientsList.ClientsList = newManager.ParseJsonClients(textFromFileClients, position);
                                 if (clientsList.ClientsList == null || clientsList.ClientsList.Count <= 0)
                                 {
@@ -578,11 +566,6 @@ namespace Company
             {
                 passportNumber.Text = "";
             }
-        }
-
-        private void OnMouseOver(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            //SaveToListObjects.Background = Background.SetValue()
         }
     }
 }

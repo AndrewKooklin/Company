@@ -138,7 +138,7 @@ namespace Company
             }
             else
             {
-                MessageBox.Show("Файл еще не создан", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Файл еще не создан. Добавьте клиента и сохраните", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             return jsonString;
         }
