@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace Company
 {
-    public class Manager : Consultant, IManager
+    public class Manager : Consultant, IConcultant, IManager
     {
         public Manager() : base()
         {
@@ -26,10 +26,11 @@ namespace Company
             return client;
         }
 
-
-        public void AddNewRecord()
+        public Change NewRecordAddClient(string totalString, int type, int user)
         {
-            DataChange newDataChange = new DataChange();
+            Change newDataChange = new Change(totalString, type, user);
+
+            return newDataChange;
         }
     }  
 }

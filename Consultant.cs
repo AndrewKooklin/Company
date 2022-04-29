@@ -1,67 +1,145 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Company
 {
     public class Consultant : IConcultant
     {
-        string root;
         public Consultant()
         {
 
         }
 
-        public string ConvertToJson(ObservableCollection<Client> clients)
+        public string ConvertToJsonClients(ObservableCollection<Client> clients)
         {
-            TreeJson treeJson;
-            treeJson = new TreeJson()
-            {
-                ClientsList = clients
-            };
+            TreeJsonClient treeJsonClients;
+            string rootClients;
 
-            root = JsonConvert.SerializeObject(treeJson, Formatting.Indented);
-            Debug.WriteLine(root);
-            return root;
+            if (clients != null)
+            {
+                treeJsonClients = new TreeJsonClient(clients)
+                {
+                    ClientsList = clients
+                };
+                rootClients = JsonConvert.SerializeObject(treeJsonClients, Formatting.Indented);
+            }
+            else
+            {
+                MessageBox.Show("Нет данных", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+
+            Debug.WriteLine(rootClients);
+            return rootClients;
         }
 
-        public List<Client> ParseJson(string root, bool position)
+        public string ConvertToJsonChanges(ObservableCollection<Change> dataChanges)
         {
-            List<Client> clients = new List<Client>();
+            TreeJsonChanges treeJsonChanges;
+            string rootChanges;
+
+            if (dataChanges != null)
+            {
+                treeJsonChanges = new TreeJsonChanges(dataChanges)
+                {
+                    DataChangeList = dataChanges
+                };
+                rootChanges = JsonConvert.SerializeObject(treeJsonChanges, Formatting.Indented);
+            }
+            else
+            {
+                MessageBox.Show("Нет данных", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+
+            Debug.WriteLine(rootChanges);
+            return rootChanges;
+        }
+
+        public ObservableCollection<Client> ParseJsonClients(string root, bool position)
+        {
+            ObservableCollection<Client> clients = new ObservableCollection<Client>();
 
             JObject json = JObject.Parse(root);
 
             var jToken = json["ClientsList"];
 
-            var clientsList = jToken.ToObject<List<Client>>();
+            var clientsList = jToken.ToObject<ObservableCollection<Client>>();
 
             foreach (var client in clientsList)
             {
                 client.positionSwitch = position;
                 clients.Add(client);
             }
+            if (clients == null || clients.Count <= 0)
+            {
+                MessageBox.Show("Список клиентов пустой", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return null;
+            }
             return clients;
+        }
+
+        public ObservableCollection<Change> ParseJsonChanges(string root)
+        {
+            if (String.IsNullOrEmpty(root))
+            {
+                return null;
+            }
+            ObservableCollection<Change> dataChanges = new ObservableCollection<Change>();
+
+            JObject json = JObject.Parse(root);
+
+            var jToken = json["DataChangeList"];
+
+            var changes = jToken.ToObject<ObservableCollection<Change>>();
+
+            foreach (var change in changes)
+            {
+                dataChanges.Add(change);
+            }
+            if (dataChanges == null || dataChanges.Count <= 0)
+            {
+                MessageBox.Show("Список изменений пустой", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+            return dataChanges;
         }
 
         public void WriteToFile(string root, string fileName)
         {
             string path = Directory.GetCurrentDirectory() + fileName;
+
+            if (string.IsNullOrEmpty(root))
+            {
+                return;
+            }
+
             File.WriteAllText(path, root);
         }
 
         public string ReadFromFile(string fileName)
         {
+            string jsonString = "";
             string path = Directory.GetCurrentDirectory() + fileName;
-            string jsonString = File.ReadAllText(path);
+            if (File.Exists(path))
+            {
+                jsonString = File.ReadAllText(path);
+                if (String.IsNullOrEmpty(jsonString) || jsonString.Length <= 0)
+                {
+                    MessageBox.Show("Файл пока пустой", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                return jsonString;
+            }
+            else
+            {
+                MessageBox.Show("Файл еще не создан", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             return jsonString;
         }
 
@@ -133,12 +211,16 @@ namespace Company
             }
         }
 
-        public bool CheckPhoneExistInBase(List<Client> clients, long phoneNumber)
+        public bool CheckPhoneExistInBase(ObservableCollection<Client> clients, Client client, long phoneNumber)
         {
             bool exist = false;
 
             foreach (var item in clients)
             {
+                if (item == client)
+                {
+                    continue;
+                }
                 if (item.Phone != phoneNumber)
                 {
                     continue;
@@ -153,12 +235,18 @@ namespace Company
             return exist;
         }
 
-        public bool CheckPassportExistInBase(List<Client> clients, string passportNumberText)
+        public bool CheckPassportExistInBase(ObservableCollection<Client> clients, Client client, string passportNumberText)
         {
             bool exist = false;
             foreach (var item in clients)
             {
+                if (item == client)
+                {
+                    continue;
+                }
+
                 bool compare = String.Equals(item.PassportNumber, passportNumberText.Trim());
+
                 if (!compare)
                 {
                     continue;
@@ -171,6 +259,13 @@ namespace Company
                 }
             }
             return exist;
+        }
+
+        public Change NewRecordChange(string totalString, int type, int user)
+        {
+            Change newDataChange = new Change(totalString, type, user);
+
+            return newDataChange;
         }
     }
 }

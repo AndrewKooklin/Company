@@ -1,21 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace Company
 {
+    [Serializable]
+    [JsonObject]
     public class Client
     {
         private string passportNumber;
 
         [NonSerialized]
         public bool positionSwitch = true;
-        public string FirstName { get; set; }
+        [JsonProperty]
         public string LastName { get; set; }
+        [JsonProperty]
+        public string FirstName { get; set; }
+        [JsonProperty]
         public string FathersName { get; set; }
+        [JsonProperty]
         public long Phone { get; set; }
+        [JsonProperty]
         public string PassportNumber
         {
             get
@@ -37,24 +41,16 @@ namespace Company
 
         protected static Random rand = new Random();
 
+        [JsonConstructor]
         public Client(string firstName, string lastName,
                         string fathersName, long phone,
                         string passportNumber)
         {
-            this.FirstName = firstName;
             this.LastName = lastName;
+            this.FirstName = firstName;
             this.FathersName = fathersName;
             this.Phone = phone;
             this.PassportNumber = passportNumber;
-        }
-
-        public Client(int number)
-        {
-            this.FirstName = $"firstName_{number}";
-            this.LastName = $"lastName_{number}";
-            this.FathersName = $"fathersName_{number}";
-            this.Phone = 89010000000 + rand.Next(1000000, 9999999);
-            this.PassportNumber = $"{rand.Next(1000, 9999)}-{rand.Next(100000, 999999)}";
         }
 
         public Client()

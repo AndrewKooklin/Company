@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Company
 {
     interface IManager
     {
-        public void AddNewRecord();
-
-
+        public Change NewRecordAddClient(string totalString, int type, int user);
     }
 }

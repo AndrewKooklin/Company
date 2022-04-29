@@ -89,12 +89,13 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Client.cs" />
-    <Compile Include="DataChange.cs" />
-    <Compile Include="DataListChanges.cs" />
+    <Compile Include="Change.cs" />
+    <Compile Include="Changes.cs" />
     <Compile Include="IConcultant.cs" />
     <Compile Include="IManager.cs" />
-    <Compile Include="NewClients.cs" />
-    <Compile Include="TreeJson.cs" />
+    <Compile Include="Clients.cs" />
+    <Compile Include="TreeJsonChanges.cs" />
+    <Compile Include="TreeJsonClient.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Company
 {
     interface IConcultant
     {
-
-
-
+        public Change NewRecordChange(string totalString, int type, int user);
     }
 }
