@@ -319,7 +319,7 @@
                     Width="100" 
                     Margin="0,15,10,15"
                     Style="{StaticResource ButtonStyle}"
-                    Click="OnClickChange"/>
+                    Click="OnClickChangePhone"/>
             <Button x:Name="SaveToFile" 
                     Content="Сохранить в файл" 
                     Width="165"

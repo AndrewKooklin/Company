@@ -315,7 +315,13 @@ namespace Company
             }
             return exist;
         }
-
+        /// <summary>
+        /// Создание новой записи
+        /// </summary>
+        /// <param name="totalString"></param>
+        /// <param name="dataChange"></param>
+        /// <param name="position"></param>
+        /// <returns>new Change</returns>
         public Change NewRecordChange(string totalString, Change.DataChange dataChange, Employee.Position position)
         {
             Change newDataChange = new Change(totalString, dataChange, position);

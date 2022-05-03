@@ -1,13 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace Company
 {
-    public class Manager : Consultant, IConcultant, IManager
+    public class Manager : Consultant,  IManager
     {
-        Position position = Position.Manager;
-
-        public Manager() : base()
+        public Manager()
         {
 
         }
@@ -23,12 +22,14 @@ namespace Company
             return client;
         }
 
-        //public Change NewRecordAddClient(string totalString, int type, int user)
-        //{
-        //    Change newDataChange = new Change(totalString, type, user);
+        new void ChangeClientData() 
+        { 
+        }
+        new void SaveToFiles()
+        {
 
-        //    return newDataChange;
-        //}
+        }
 
+        
     }  
 }

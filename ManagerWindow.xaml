@@ -79,6 +79,7 @@
             <Setter Property="Control.Foreground" Value="#FF2030E0" />
         </Style>
         <Style x:Key="TextBoxStyle">
+            <Setter Property="Control.BorderThickness" Value="0" />
             <Setter Property="Control.Height" Value="25" />
             <Setter Property="Control.Width" Value="110" />
             <Setter Property="Control.Margin" Value="2 0 0 0" />
@@ -282,24 +283,29 @@
                     VerticalAlignment="Top" 
                     Orientation="Horizontal">
             <TextBox x:Name="lastName" 
-                     Text="Фамилия" 
+                     Text="Фамилия"
+                     Visibility="Hidden"
                      Style="{StaticResource TextBoxStyle}" 
                      GotFocus="OnFocusLastName"/>
             <TextBox x:Name="firstName" 
-                     Text="Имя" 
+                     Text="Имя"
+                     Visibility="Hidden"
                      Style="{StaticResource TextBoxStyle}" 
                      GotFocus="OnFocusFirstName"/>
             <TextBox x:Name="fathersName" 
-                     Text="Отчество" 
+                     Text="Отчество"
+                     Visibility="Hidden"
                      Style="{StaticResource TextBoxStyle}" 
                      GotFocus="OnFocusFathersName"/>
             <TextBox x:Name="phone" 
-                     Text="Телефон" 
+                     Text="Телефон"
+                     Visibility="Hidden"
                      Style="{StaticResource TextBoxStyle}" 
                      TextChanged="OnPhoneChanged" 
                      GotFocus="OnFocusPhone"/>
             <TextBox x:Name="passportNumber" 
-                     Text="Паспорт" 
+                     Text="Паспорт"
+                     Visibility="Hidden"
                      Style="{StaticResource TextBoxStyle}" 
                      TextChanged="OnPassportChanged" 
                      GotFocus="OnFocusPassportNumber"/>

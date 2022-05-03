@@ -20,12 +20,10 @@ namespace Company
     /// </summary>
     public partial class ManagerWindow : Window
     {
-        string fileNameClients = "\\Clients.json";
-        string fileNameChanges = "\\Changes.json";
-        public Clients clientsList;
-        public Changes changesList;
+        public ClientsRepository clientsRepository;
+        public ChangesRepository changesRepository;
+
         Manager newManager = new Manager();
-        Consultant newConsultant = new Consultant();
         List<string> textList = new List<string>();
         Client client;
         Dictionary<int, long> phoneChanges = new Dictionary<int, long>();
@@ -42,35 +40,36 @@ namespace Company
         public ManagerWindow()
         {
             InitializeComponent();
-            clientsList = new Clients(this);
-            changesList = new Changes(this);
 
             clientItems.ItemsSource = null;
-            position = true;
-            textFromFileClients = newManager.ReadFromFile(fileNameClients);
-            if (!String.IsNullOrEmpty(textFromFileClients))
+            recordItems.ItemsSource = null;
+
+            position = Employee.Position.Manager;
+
+            clientsRepository.ClientsList = newManager.GetClietsItemSourse(position);
+            if (clientsRepository.ClientsList != null)
             {
-                clientsList.ClientsList = newManager.ParseJsonClients(textFromFileClients, position);
-                if (clientsList.ClientsList != null)
+                clientItems.ItemsSource = clientsRepository.ClientsList;
+
+                changesRepository.ChangesList = newManager.GetChangesItemSourse();
+                if (changesRepository.ChangesList != null)
                 {
-                    clientItems.ItemsSource = clientsList.ClientsList;
+                    clientItems.ItemsSource = changesRepository.ChangesList;
                 }
-                textFromFileChanges = newManager.ReadFromFile(fileNameChanges);
-                if (!String.IsNullOrEmpty(textFromFileChanges))
+                else
                 {
-                    changesList.ChangesList = newManager.ParseJsonChanges(textFromFileChanges);
-                    if (changesList.ChangesList != null)
-                    {
-                        recordItems.ItemsSource = changesList.ChangesList;
-                    }
+                    return;
                 }
             }
+            else
+            {
+                MessageBox.Show("Файл пока пустой. Добавьте клиента и сохраните.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
         }
-
-
-
-
-
+        /// <summary>
+        /// Выбор строки из списка клиентов
+        /// </summary>
         private void Row_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             client = (Client)clientItems.SelectedItem;
@@ -80,13 +79,21 @@ namespace Company
                 return;
             }
 
+            firstName.Visibility = Visibility.Visible;
+            lastName.Visibility = Visibility.Visible;
+            fathersName.Visibility = Visibility.Visible;
+            phone.Visibility = Visibility.Visible;
+            passportNumber.Visibility = Visibility.Visible;
+
             firstName.Text = client.FirstName;
             lastName.Text = client.LastName;
             fathersName.Text = client.FathersName;
             phone.Text = client.Phone.ToString();
             passportNumber.Text = client.PassportNumber;
         }
-
+        /// <summary>
+        /// Проверка корректности введенного номера телефона
+        /// </summary>
         private void OnPhoneChanged(object sender, TextChangedEventArgs e)
         {
             var bc = new BrushConverter();
@@ -110,7 +117,9 @@ namespace Company
                 return;
             }
         }
-
+        /// <summary>
+        /// Проверка корректности введенного номера паспорта
+        /// </summary>
         private void OnPassportChanged(object sender, TextChangedEventArgs e)
         {
             string pNumber = passportNumber.Text.ToString();
@@ -129,133 +138,75 @@ namespace Company
                 }
             }
         }
-
+        /// <summary>
+        /// Действия при нажатии кнопки "Изменить"
+        /// </summary>
         private void OnClickChange(object sender, RoutedEventArgs e)
         {
             type = 1;
 
-                if (clientItems.SelectedItem != null)
+            if (clientItems.SelectedItem != null)
+            {
+                List<Client> clients = new List<Client>();
+
+                foreach (var item in clientItems.Items)
                 {
-                    List<Client> clients = new List<Client>();
+                    clients.Add(item as Client);
+                }
 
-                    foreach (var item in clientItems.Items)
-                    {
-                        clients.Add(item as Client);
-                    }
+                index = clientItems.SelectedIndex;
 
-                    index = clientItems.SelectedIndex;
+                var client = clients.ElementAt(index);
 
-                    var client = clients.ElementAt(index);
+                if (newManager.CheckTextBoxIsNullOrEmpty(firstName.Text, "Имя")) return;
+                if (newManager.CheckTextBoxIsNullOrEmpty(lastName.Text, "Фамилия")) return;
+                if (newManager.CheckTextBoxIsNullOrEmpty(phone.Text, "Телефон")) return;
+                if (newManager.CheckTextBoxIsNullOrEmpty(passportNumber.Text, "Номер паспорта")) return;
 
-                    ComboBoxItem cbi = (ComboBoxItem)SelectPosition.SelectedItem;
-                    name = cbi.Name;
-                    switch (name)
-                    {
-                        case "Manager":
-                            {
-                                user = 1;
-                                if (newManager.CheckTextBoxIsNullOrEmpty(firstName.Text, "Имя")) return;
-                                if (newManager.CheckTextBoxIsNullOrEmpty(lastName.Text, "Фамилия")) return;
-                                if (newManager.CheckTextBoxIsNullOrEmpty(phone.Text, "Телефон")) return;
-                                if (newManager.CheckTextBoxIsNullOrEmpty(passportNumber.Text, "Номер паспорта")) return;
+                bool parse = newManager.CheckParsePhone(phone.Text, out long phoneNumber);
+                if (parse && phoneNumber != 0)
+                {
+                    if (!newManager.CheckPhoneMatchesPattern(phone.Text)) return;
+                    if (!newManager.CheckPassportMatchesPattern(passportNumber.Text)) return;
 
-                                bool parse = newManager.CheckParsePhone(phone.Text, out long phoneNumber);
-                                if (parse && phoneNumber != 0)
-                                {
-                                    if (!newManager.CheckPhoneMatchesPattern(phone.Text)) return;
-                                    if (!newManager.CheckPassportMatchesPattern(passportNumber.Text)) return;
-
-                                    if (newManager.CheckPhoneExistInBase(clientsList.ClientsList, client, phoneNumber)) return;
-                                    if (newManager.CheckPassportExistInBase(clientsList.ClientsList, client, passportNumber.Text)) return;
-                                }
-                                else
-                                {
-                                    return;
-                                }
-
-                                textList = new List<string>() { lastName.Text, firstName.Text, fathersName.Text, phone.Text, passportNumber.Text };
-
-                                var fieldsList = FieldsChanged(textList, user, index);
-                                if (!String.IsNullOrEmpty(fieldsList))
-                                {
-                                    changesList.ChangesList.Add(newManager.NewRecordChange(fieldsList, type, user));
-                                    clientsList.ClientsList.RemoveAt(index);
-                                    client.FirstName = firstName.Text.Trim();
-                                    client.LastName = lastName.Text.Trim();
-                                    client.FathersName = fathersName.Text.Trim();
-                                    client.Phone = phoneNumber;
-                                    client.PassportNumber = passportNumber.Text.Trim();
-                                    clientsList.ClientsList.Insert(index, client);
-                                }
-                                else
-                                {
-                                    return;
-                                }
-                                clientItems.ItemsSource = null;
-                                recordItems.ItemsSource = null;
-
-                                clientItems.ItemsSource = clientsList.ClientsList;
-                                recordItems.ItemsSource = changesList.ChangesList;
-
-                                break;
-                            }
-                        case "Consultant":
-                            {
-                                user = 2;
-                                bool parse = newConsultant.CheckParsePhone(phone.Text, out long phoneNumber);
-                                if (parse && phoneNumber != 0)
-                                {
-                                    if (!newConsultant.CheckPhoneMatchesPattern(phone.Text)) return;
-                                    if (newConsultant.CheckPhoneExistInBase(clientsList.ClientsList, client, phoneNumber)) return;
-                                }
-                                else
-                                {
-                                    return;
-                                }
-
-                                textList = new List<string>() { lastName.Text, firstName.Text, fathersName.Text, phone.Text, passportNumber.Text };
-
-                                var fieldsList = FieldsChanged(textList, user, index);
-                                if (!String.IsNullOrEmpty(fieldsList))
-                                {
-                                    changesList.ChangesList.Add(newConsultant.NewRecordChange(fieldsList, type, user));
-                                }
-                                else
-                                {
-                                    break;
-                                }
-
-                                clientItems.ItemsSource = null;
-                                recordItems.ItemsSource = null;
-
-                                client.Phone = phoneNumber;
-
-                                if (phoneChanges.ContainsKey(index))
-                                {
-                                    phoneChanges.Remove(index);
-                                    phoneChanges.Add(index, phoneNumber);
-                                }
-                                else
-                                {
-                                    phoneChanges.Add(index, phoneNumber);
-                                }
-
-                                clientItems.ItemsSource = clients;
-                                recordItems.ItemsSource = changesList.ChangesList;
-
-                                break;
-                            }
-                        default:
-                            {
-                                MessageBox.Show("Должность не определена", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                                break;
-                            }
-                    }
+                    if (newManager.CheckPhoneExistInBase(clientsRepository.ClientsList, client, phoneNumber)) return;
+                    if (newManager.CheckPassportExistInBase(clientsRepository.ClientsList, client, passportNumber.Text)) return;
                 }
                 else
                 {
-                    MessageBox.Show("Выберите клиента", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
                 }
+
+                textList = new List<string>() { lastName.Text, firstName.Text,
+                                                fathersName.Text, phone.Text, passportNumber.Text };
+
+                var fieldsList = FieldsChanged(textList, index);
+                if (!String.IsNullOrEmpty(fieldsList))
+                {
+                    var newRecordChange = newManager.NewRecordChange(fieldsList, Change.DataChange.ChangingRecord, position);
+                    changesRepository.ChangesList.Add(newRecordChange);
+                    clientsRepository.ClientsList.RemoveAt(index);
+                    client.FirstName = firstName.Text.Trim();
+                    client.LastName = lastName.Text.Trim();
+                    client.FathersName = fathersName.Text.Trim();
+                    client.Phone = phoneNumber;
+                    client.PassportNumber = passportNumber.Text.Trim();
+                    clientsRepository.ClientsList.Insert(index, client);
+                }
+                else
+                {
+                    return;
+                }
+                clientItems.ItemsSource = null;
+                recordItems.ItemsSource = null;
+
+                clientItems.ItemsSource = clientsRepository.ClientsList;
+                recordItems.ItemsSource = changesRepository.ChangesList;
+            }
+            else
+            {
+                MessageBox.Show("Выберите клиента", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
         private void OnClickAddClient(object sender, RoutedEventArgs e)
         {
@@ -305,7 +256,7 @@ namespace Company
             }
         }
 
-        public string FieldsChanged(List<string> textList, int user, int index)
+        public string FieldsChanged(List<string> textList, int index)
         {
             string totalString = "";
 
@@ -327,22 +278,11 @@ namespace Company
                 client.PassportNumber.Trim()
             };
 
-            if (user == 1)
+            for (int i = 0; i < clientProperty.Count; i++)
             {
-                for (int i = 0; i < clientProperty.Count; i++)
+                if (!String.Equals(clientProperty[i], textList[i].Trim()))
                 {
-                    if (!String.Equals(clientProperty[i], textList[i].Trim()))
-                    {
-                        totalString = string.Concat(totalString, fieldNames[i]);
-                    }
-                }
-                return totalString;
-            }
-            else if (user == 2)
-            {
-                if (!String.Equals(client.Phone.ToString(), textList[3].Trim()))
-                {
-                    totalString = string.Concat(totalString, fieldNames[3].Trim());
+                    totalString = string.Concat(totalString, fieldNames[i]);
                 }
             }
             return totalString;

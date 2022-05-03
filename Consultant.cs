@@ -1,9 +1,4 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System;
+﻿using System;
 
 namespace Company
 {
@@ -12,6 +7,15 @@ namespace Company
         public Consultant()
         {
             
+        }
+
+        public void ChangeClientData()
+        {
+
+        }
+        public void SaveToFiles()
+        {
+
         }
     }
 }
