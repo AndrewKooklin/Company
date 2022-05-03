@@ -13,5 +13,14 @@ namespace Company
     /// </summary>
     public partial class App : Application
     {
+        void App_Startup(object sender, StartupEventArgs e)
+        {
+            MainWindow mainWindow = new MainWindow();
+            //mainWindow.clientsList = new Clients(mainWindow);
+            //mainWindow.changesList = new Changes(mainWindow);
+            //mainWindow.Show();
+        }
+
+
     }
 }

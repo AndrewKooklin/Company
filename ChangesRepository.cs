@@ -1,13 +1,14 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace Company
 {
-    class Changes
+    public class ChangesRepository
     {
-        private MainWindow w;
+        private Window w;
         public ObservableCollection<Change> ChangesList { get; set; }
 
-        public Changes(MainWindow W)
+        public ChangesRepository(Window W)
         {
             this.w = W;
             this.ChangesList = new ObservableCollection<Change>();

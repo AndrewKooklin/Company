@@ -4,6 +4,8 @@ namespace Company
 {
     interface IManager
     {
-        public Change NewRecordAddClient(string totalString, int type, int user);
+        public Client AddClient(string firstName, string lastName,
+                        string fathersName, long phone,
+                        string passportNumber);
     }
 }

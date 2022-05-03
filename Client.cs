@@ -7,10 +7,9 @@ namespace Company
     [JsonObject]
     public class Client
     {
-        private string passportNumber;
-
         [NonSerialized]
-        public bool positionSwitch = true;
+        private string passportNumber;
+        
         [JsonProperty]
         public string LastName { get; set; }
         [JsonProperty]
@@ -24,14 +23,7 @@ namespace Company
         {
             get
             {
-                if (positionSwitch)
-                {
-                    return passportNumber;
-                }
-                else
-                {
-                    return "**** - ******";
-                }
+                return passportNumber;
             }
             set 
             {
@@ -39,7 +31,32 @@ namespace Company
             }
         }
 
-        protected static Random rand = new Random();
+        public string GetPassportNumber(Employee.Position type)
+        {
+            string passport;
+            switch (type)
+            {
+                case Employee.Position.Consultant:
+                    {
+                        passport = "****-******";
+                        break;
+                    }
+                case Employee.Position.Manager:
+                    {
+                        passport = passportNumber;
+                        break;
+                    }
+                default:
+                    {
+                        passport = "";
+                        break;
+                    }
+            }
+
+            return passport;
+        }
+
+        //protected static Random rand = new Random();
 
         [JsonConstructor]
         public Client(string firstName, string lastName,

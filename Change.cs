@@ -7,28 +7,51 @@ namespace Company
     [JsonObject]
     public class Change
     {
-        public Change(string totalString, int type, int user)
+        public Change(string totalString, DataChange dataChange, Employee.Position position)
         {
             DateTime dateTime = DateTime.Now;
             this.dateTime = dateTime;
             this.TotalString = totalString;
-            if (type == 1)
+
+            switch (dataChange)
             {
-                this.Type = "Изменение данных";
+                case DataChange.ChangingRecord:
+                    {
+                        this.Type = "Изменение данных";
+                        break;
+                    }
+                case DataChange.AddNewClient:
+                    {
+                        this.Type = "Добавление клиента";
+                        break;
+                    }
+                default:
+                    {
+                        this.Type = "Действие нераспознано";
+                        break;
+                    }
             }
-            else if (type == 2)
+
+            switch (position)
             {
-                this.Type = "Добавление клиента";
-            }
-            if (user == 1)
-            {
-                this.Position = "Менеджер";
-            }
-            else if (user == 2)
-            {
-                this.Position = "Консультант";
+                case Employee.Position.Consultant:
+                    {
+                        this.Position = "Консультант";
+                        break;
+                    }
+                case Employee.Position.Manager:
+                    {
+                        this.Position = "Менеджер";
+                        break;
+                    }
+                default:
+                    {
+                        this.Position = "Неизвестный";
+                        break;
+                    }
             }
         }
+
         [JsonConstructor]
         public Change(DateTime dateTime, string totalString, string type, string position)
         {
@@ -37,6 +60,13 @@ namespace Company
             Type = type;
             Position = position;
         }
+        
+        public enum DataChange
+        {
+            ChangingRecord,
+            AddNewClient
+        }
+
         [JsonProperty]
         public DateTime dateTime { get; set; }
         [JsonProperty]

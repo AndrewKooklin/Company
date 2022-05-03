@@ -1,13 +1,14 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace Company
 {
-    public class Clients
+    public class ClientsRepository
     {
-        private MainWindow w;
+        private Window w;
         public ObservableCollection<Client> ClientsList { get; set; }
 
-        public Clients(MainWindow W)
+        public ClientsRepository(Window W)
         {
             this.w = W;
             this.ClientsList = new ObservableCollection<Client>();

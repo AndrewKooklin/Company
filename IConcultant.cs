@@ -4,6 +4,6 @@ namespace Company
 {
     interface IConcultant
     {
-        public Change NewRecordChange(string totalString, int type, int user);
+        //public Change NewRecordChange(string totalString, int type, int user);
     }
 }

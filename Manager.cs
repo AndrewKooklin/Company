@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 
 namespace Company
 {
     public class Manager : Consultant, IConcultant, IManager
     {
+        Position position = Position.Manager;
+
         public Manager() : base()
         {
 
@@ -20,11 +23,12 @@ namespace Company
             return client;
         }
 
-        public Change NewRecordAddClient(string totalString, int type, int user)
-        {
-            Change newDataChange = new Change(totalString, type, user);
+        //public Change NewRecordAddClient(string totalString, int type, int user)
+        //{
+        //    Change newDataChange = new Change(totalString, type, user);
 
-            return newDataChange;
-        }
+        //    return newDataChange;
+        //}
+
     }  
 }

@@ -88,14 +88,33 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BaseWindow.xaml.cs">
+      <DependentUpon>BaseWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Client.cs" />
     <Compile Include="Change.cs" />
-    <Compile Include="Changes.cs" />
+    <Compile Include="ChangesRepository.cs" />
+    <Compile Include="ConsultantWindow.xaml.cs">
+      <DependentUpon>ConsultantWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Employee.cs" />
     <Compile Include="IConcultant.cs" />
+    <Compile Include="IActionEmployee.cs" />
     <Compile Include="IManager.cs" />
-    <Compile Include="Clients.cs" />
+    <Compile Include="ClientsRepository.cs" />
+    <Compile Include="ManagerWindow.xaml.cs">
+      <DependentUpon>ManagerWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TreeJsonChanges.cs" />
     <Compile Include="TreeJsonClient.cs" />
+    <Page Include="BaseWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ConsultantWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -109,6 +128,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ManagerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Manager.cs" />
