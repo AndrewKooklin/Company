@@ -95,10 +95,13 @@
       <DependentUpon>ConsultantWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Employee.cs" />
+    <Compile Include="ICheckMethods.cs" />
     <Compile Include="IConcultant.cs" />
-    <Compile Include="IActionEmployee.cs" />
+    <Compile Include="IGetRecordsFromBase.cs" />
     <Compile Include="IManager.cs" />
     <Compile Include="ClientsRepository.cs" />
+    <Compile Include="IWorkWithFiles.cs" />
+    <Compile Include="IWorkWithJson.cs" />
     <Compile Include="ManagerWindow.xaml.cs">
       <DependentUpon>ManagerWindow.xaml</DependentUpon>
     </Compile>

@@ -13,7 +13,9 @@ namespace Company
         {
             InitializeComponent();
         }
-
+        /// <summary>
+        /// Обработка события выбора клиента из списка
+        /// </summary>
         private void OnSelectedChanged(object sender, SelectionChangedEventArgs e)
         {
             if (SelectPosition.SelectedItem != null)
@@ -44,9 +46,9 @@ namespace Company
                 }
             }
         }
-
-        
-
+        /// <summary>
+        /// Обработка события нажатия кнопки "Выйти"
+        /// </summary>
         private void OnClickExit(object sender, RoutedEventArgs e)
         {
             Close();

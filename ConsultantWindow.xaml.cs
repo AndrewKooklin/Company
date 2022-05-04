@@ -58,7 +58,7 @@ namespace Company
             }
         }
         /// <summary>
-        /// Выбор строки из списка клиентов
+        /// Обработка события выбора строки из списка клиентов
         /// </summary>
         private void Row_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

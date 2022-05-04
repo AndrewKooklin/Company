@@ -59,7 +59,7 @@ namespace Company
             }
         }
         /// <summary>
-        /// Выбор строки из списка клиентов
+        /// Обработка события выбора строки из списка клиентов
         /// </summary>
         private void Row_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -185,6 +185,10 @@ namespace Company
                 MessageBox.Show("Выберите клиента", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        /// <summary>
+        /// Действия при нажатии кнопки "Добаить клиента"
+        /// </summary>
         private void OnClickAddClient(object sender, RoutedEventArgs e)
         {
             if (newManager.CheckTextBoxIsNullOrEmpty(firstName.Text, "Имя")) return;
