@@ -24,7 +24,9 @@ namespace Company
             Consultant,
             Manager
         }
-
+        /// <summary>
+        /// Получение списка объектов "Клиент" из файла
+        /// </summary>
         public ObservableCollection<Client> GetClietsItemSourse(Position position)
         {
             var clientsRepository = new ObservableCollection<Client>();
@@ -47,7 +49,9 @@ namespace Company
                 return null;
             }
         }
-
+        /// <summary>
+        /// Получение списка объектов "Запись" из файла
+        /// </summary>
         public ObservableCollection<Change> GetChangesItemSourse()
         {
             var changesRepository = new ObservableCollection<Change>();
@@ -70,7 +74,9 @@ namespace Company
                 return null;
             }
         }
-
+        /// <summary>
+        /// Преобразование объектов "Клиент" к json строке
+        /// </summary>
         public string ConvertToJsonClients(ObservableCollection<Client> clients)
         {
             TreeJsonClient treeJsonClients;
@@ -93,7 +99,9 @@ namespace Company
             Debug.WriteLine(rootClients);
             return rootClients;
         }
-
+        /// <summary>
+        /// Преобразование объектов "Запись" к json строке
+        /// </summary>
         public string ConvertToJsonChanges(ObservableCollection<Change> dataChanges)
         {
             TreeJsonChanges treeJsonChanges;
@@ -116,7 +124,9 @@ namespace Company
             Debug.WriteLine(rootChanges);
             return rootChanges;
         }
-
+        /// <summary>
+        /// Приведение json строки к объектам "Клиент"
+        /// </summary>
         public ObservableCollection<Client> ParseJsonClients(string root, Position position)
         {
             ObservableCollection<Client> clients = new ObservableCollection<Client>();
@@ -139,7 +149,9 @@ namespace Company
             }
             return clients;
         }
-
+        /// <summary>
+        /// Приведение json строки к объектам "Запись"
+        /// </summary>
         public ObservableCollection<Change> ParseJsonChanges(string root)
         {
             if (String.IsNullOrEmpty(root))
@@ -165,7 +177,9 @@ namespace Company
             }
             return dataChanges;
         }
-
+        /// <summary>
+        /// Запись json строки в файл
+        /// </summary>
         public void WriteToFile(string root, string fileName)
         {
             string path = Directory.GetCurrentDirectory() + fileName;
@@ -177,7 +191,9 @@ namespace Company
 
             File.WriteAllText(path, root);
         }
-
+        /// <summary>
+        /// Чтение строки из файла
+        /// </summary>
         public string ReadFromFile(string fileName)
         {
             string jsonString = "";
@@ -197,7 +213,9 @@ namespace Company
             }
             return jsonString;
         }
-
+        /// <summary>
+        /// Проверка на пустоту поля TextBox
+        /// </summary>
         public bool CheckTextBoxIsNullOrEmpty(string text, string name)
         {
             bool check;
@@ -213,7 +231,9 @@ namespace Company
                 return check;
             }
         }
-
+        /// <summary>
+        /// Проверка приведения введеного телефона к типу long
+        /// </summary>
         public bool CheckParsePhone(string phoneText, out long phoneNumber)
         {
             bool parsePhone = long.TryParse(phoneText.Trim(), out long phoneNumberTemp);
@@ -231,7 +251,9 @@ namespace Company
                 return parsePhone;
             }
         }
-
+        /// <summary>
+        /// Проверка на соответствие формату введенного телефона
+        /// </summary>
         public bool CheckPhoneMatchesPattern(string phoneText)
         {
             bool check;
@@ -248,7 +270,9 @@ namespace Company
                 return check;
             }
         }
-
+        /// <summary>
+        /// Проверка на соответствие формату введенного паспорта
+        /// </summary>
         public bool CheckPassportMatchesPattern(string passportNumberText)
         {
             bool check;
@@ -265,7 +289,9 @@ namespace Company
                 return check;
             }
         }
-
+        /// <summary>
+        /// Проверка на наличие измененного телефона выбранного клиента в базе
+        /// </summary>
         public bool CheckPhoneExistInBase(ObservableCollection<Client> clients, Client client, long phoneNumber)
         {
             bool exist = false;
@@ -289,7 +315,31 @@ namespace Company
             }
             return exist;
         }
+        /// <summary>
+        /// Проверка на наличие введенного телефона в базе
+        /// </summary>
+        public bool CheckPhoneExistInBase(ObservableCollection<Client> clients, long phoneNumber)
+        {
+            bool exist = false;
 
+            foreach (var item in clients)
+            {
+                if (item.Phone != phoneNumber)
+                {
+                    continue;
+                }
+                else
+                {
+                    MessageBox.Show("Такой номер телефона уже есть в базе", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    exist = true;
+                    return exist;
+                }
+            }
+            return exist;
+        }
+        /// <summary>
+        /// Проверка на наличие измененного паспорта выбранного клиента в базе
+        /// </summary>
         public bool CheckPassportExistInBase(ObservableCollection<Client> clients, Client client, string passportNumberText)
         {
             bool exist = false;
@@ -316,13 +366,33 @@ namespace Company
             return exist;
         }
         /// <summary>
+        /// Проверка на наличие введенного телефона в базе
+        /// </summary>
+        public bool CheckPassportExistInBase(ObservableCollection<Client> clients, string passportNumberText)
+        {
+            bool exist = false;
+            foreach (var item in clients)
+            {
+                bool compare = String.Equals(item.PassportNumber, passportNumberText.Trim());
+
+                if (!compare)
+                {
+                    continue;
+                }
+                else
+                {
+                    MessageBox.Show("Такой номер паспорта уже есть в базе", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    exist = true;
+                    return exist;
+                }
+            }
+            return exist;
+        }
+        /// <summary>
         /// Создание новой записи
         /// </summary>
-        /// <param name="totalString"></param>
-        /// <param name="dataChange"></param>
-        /// <param name="position"></param>
         /// <returns>new Change</returns>
-        public Change NewRecordChange(string totalString, Change.DataChange dataChange, Employee.Position position)
+        public Change NewRecord(string totalString, Change.DataChange dataChange, Employee.Position position)
         {
             Change newDataChange = new Change(totalString, dataChange, position);
 

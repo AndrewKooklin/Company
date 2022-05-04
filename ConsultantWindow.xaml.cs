@@ -16,13 +16,10 @@ namespace Company
     {
         public ClientsRepository clientsRepository;
         public ChangesRepository changesRepository;
-        Manager newManager = new Manager();
         Consultant newConsultant = new Consultant();
         Dictionary<int, long> phoneChanges = new Dictionary<int, long>();
         string rootClients;
         string rootChanges;
-        string textFromFileClients;
-        string textFromFileChanges;
         public int index;
         public Employee.Position position;
 
@@ -32,7 +29,12 @@ namespace Company
 
             clientItems.ItemsSource = null;
             recordItems.ItemsSource = null;
+
             position = Employee.Position.Consultant;
+
+            clientsRepository = new ClientsRepository(this);
+            changesRepository = new ChangesRepository(this);
+
             clientsRepository.ClientsList = newConsultant.GetClietsItemSourse(position);
             if (clientsRepository.ClientsList != null)
             {
@@ -41,7 +43,7 @@ namespace Company
                 changesRepository.ChangesList = newConsultant.GetChangesItemSourse();
                 if (changesRepository.ChangesList != null)
                 {
-                    clientItems.ItemsSource = changesRepository.ChangesList;
+                    recordItems.ItemsSource = changesRepository.ChangesList;
                 }
                 else
                 {
@@ -126,7 +128,7 @@ namespace Company
                 string fieldsList = CheckFieldPhoneChanged(index);
                 if (!String.IsNullOrEmpty(fieldsList))
                 {
-                    var newRecordChange = newConsultant.NewRecordChange(fieldsList, Change.DataChange.ChangingRecord, position);
+                    var newRecordChange = newConsultant.NewRecord(fieldsList, Change.DataChange.ChangingRecord, position);
                     changesRepository.ChangesList.Add(newRecordChange);
                 }
                 else
@@ -193,22 +195,22 @@ namespace Company
         /// </summary>
         private void OnClickSaveToFiles(object sender, RoutedEventArgs e)
         {
-                clientsRepository.ClientsList = newConsultant.GetClietsItemSourse(Employee.Position.Manager);
-                if (clientsRepository.ClientsList == null || clientsRepository.ClientsList.Count <= 0)
-                {
-                    MessageBox.Show("Список клиентов пока пустой", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-                else
-                {
-                    var keys = phoneChanges.Keys.ToList();
+            clientsRepository.ClientsList = newConsultant.GetClietsItemSourse(Employee.Position.Manager);
+            if (clientsRepository.ClientsList == null || clientsRepository.ClientsList.Count <= 0)
+            {
+                MessageBox.Show("Список клиентов пока пустой", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            else
+            {
+                var keys = phoneChanges.Keys.ToList();
 
-                    for (int i = 0; i < keys.Count; i++)
-                    {
-                        clientsRepository.ClientsList.ElementAt(keys[i]).Phone = phoneChanges[keys[i]];
-                    }
-                    rootClients = newConsultant.ConvertToJsonClients(clientsRepository.ClientsList);
+                for (int i = 0; i < keys.Count; i++)
+                {
+                    clientsRepository.ClientsList.ElementAt(keys[i]).Phone = phoneChanges[keys[i]];
                 }
+                rootClients = newConsultant.ConvertToJsonClients(clientsRepository.ClientsList);
+            }
             if (changesRepository.ChangesList.Count > 0)
             {
                 rootChanges = newConsultant.ConvertToJsonChanges(changesRepository.ChangesList);
@@ -222,6 +224,43 @@ namespace Company
             newConsultant.WriteToFile(rootChanges, newConsultant.fileNameChanges);
 
             MessageBox.Show("Файл сохранен", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        /// <summary>
+        /// Проверка корректности введенного номера паспорта
+        /// </summary>
+        private void OnPassportChanged(object sender, TextChangedEventArgs e)
+        {
+            string pNumber = passportNumber.Text.ToString();
+
+            if (!String.IsNullOrEmpty(pNumber))
+            {
+                Regex regex = new Regex(@"\d\d\d\d-\d\d\d\d\d\d$");
+                var bc = new BrushConverter();
+                if (regex.IsMatch(passportNumber.Text))
+                {
+                    passportNumber.Background = (Brush)bc.ConvertFrom("#abffbe");
+                }
+                else
+                {
+                    passportNumber.Background = (Brush)bc.ConvertFrom("#ffa4a4");
+                }
+            }
+        }
+        /// <summary>
+        /// Очистка поля TextBox Phone при получении фокуса элементом
+        /// </summary>
+        private void OnFocusPhone(object sender, RoutedEventArgs e)
+        {
+            if (phone.Text == "Телефон")
+            {
+                phone.Text = "";
+            }
+        }
+
+        private void OnClickExit(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Company(Consultant)" 
         Height="580" 
-        Width="1350" 
+        Width="1190" 
         FontSize="14"
         Background="#FFCCF6EE">
 
@@ -285,18 +285,15 @@
             <TextBox x:Name="lastName" 
                      Text="Фамилия" 
                      Visibility="Hidden"
-                     Style="{StaticResource TextBoxStyle}" 
-                     GotFocus="OnFocusLastName"/>
+                     Style="{StaticResource TextBoxStyle}"/>
             <TextBox x:Name="firstName" 
                      Text="Имя"
                      Visibility="Hidden"
-                     Style="{StaticResource TextBoxStyle}" 
-                     GotFocus="OnFocusFirstName"/>
+                     Style="{StaticResource TextBoxStyle}"/>
             <TextBox x:Name="fathersName" 
                      Text="Отчество"
                      Visibility="Hidden"
-                     Style="{StaticResource TextBoxStyle}" 
-                     GotFocus="OnFocusFathersName"/>
+                     Style="{StaticResource TextBoxStyle}"/>
             <TextBox x:Name="phone" 
                      Text="Телефон"
                      Visibility="Hidden"
@@ -307,8 +304,7 @@
                      Text="Паспорт"
                      Visibility="Hidden"
                      Style="{StaticResource TextBoxStyle}" 
-                     TextChanged="OnPassportChanged" 
-                     GotFocus="OnFocusPassportNumber"/>
+                     TextChanged="OnPassportChanged"/>
         </StackPanel>
         <StackPanel Grid.Row="3" 
                     Grid.Column="0" 
@@ -316,16 +312,24 @@
                     Orientation="Horizontal">
             <Button x:Name="SaveToListObjects" 
                     Content="Изменить" 
-                    Width="100" 
                     Margin="0,15,10,15"
                     Style="{StaticResource ButtonStyle}"
                     Click="OnClickChangePhone"/>
             <Button x:Name="SaveToFile" 
-                    Content="Сохранить в файл" 
-                    Width="165"
+                    Content="Сохранить в файл"
                     Margin="10,15,10,15" 
                     Style="{StaticResource ButtonStyle}" 
                     Click="OnClickSaveToFiles"/>
+        </StackPanel>
+        <StackPanel Grid.Row="3" 
+                    Grid.Column="1"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+            <Button x:Name="BtnExit" 
+                    Content="Выйти" 
+                    Margin="450,15,10,15"
+                    Style="{StaticResource ButtonStyle}"
+                    Click="OnClickExit"/>
         </StackPanel>
 
     </Grid>

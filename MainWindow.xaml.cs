@@ -49,7 +49,7 @@ namespace Company
 
         private void OnClickExit(object sender, RoutedEventArgs e)
         {
-
+            Close();
         }
     }
 }

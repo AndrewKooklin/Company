@@ -88,9 +88,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="BaseWindow.xaml.cs">
-      <DependentUpon>BaseWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Client.cs" />
     <Compile Include="Change.cs" />
     <Compile Include="ChangesRepository.cs" />
@@ -107,10 +104,6 @@
     </Compile>
     <Compile Include="TreeJsonChanges.cs" />
     <Compile Include="TreeJsonClient.cs" />
-    <Page Include="BaseWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="ConsultantWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

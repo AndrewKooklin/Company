@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Company(Manager)" 
         Height="580" 
-        Width="1350" 
+        Width="1190" 
         FontSize="14"
         Background="#FFCCF6EE">
 
@@ -35,7 +35,8 @@
             <Setter Property="Control.FontFamily" Value="Verdana" />
             <Setter Property="Control.FontSize" Value="14" />
             <Setter Property="Control.FontWeight" Value="Medium" />
-            <Setter Property="Control.Padding" Value="5" />
+            <Setter Property="Control.Width" Value="auto" />
+            <Setter Property="Control.Padding" Value="10" />
             <Setter Property="Control.Margin" Value="5" />
             <Setter Property="Control.Cursor" Value="Hand" />
             <Setter Property="Control.HorizontalContentAlignment" Value="Center" />
@@ -171,7 +172,7 @@
         </StackPanel>
 
         <ScrollViewer Grid.Row="1" 
-                      Grid.Column="0" 
+                      Grid.Column="0"
                       Margin="0" 
                       VerticalScrollBarVisibility="Auto" 
                       HorizontalAlignment="Left">
@@ -220,14 +221,13 @@
         </ScrollViewer>
 
         <ScrollViewer Grid.Row="1" 
-                      Grid.Column="1" 
-                      Margin="15 0 0 0" 
+                      Grid.Column="1"
                       VerticalScrollBarVisibility="Auto" 
                       HorizontalAlignment="Left">
             <StackPanel x:Name="myPanel2" 
                         Grid.Row="1" 
                         Grid.Column="1" 
-                        Margin="0" 
+                        Margin="15 0 0 0" 
                         HorizontalAlignment="Left" 
                         VerticalAlignment="Top">
                 <ListBox x:Name="recordItems"
@@ -316,22 +316,29 @@
                     Orientation="Horizontal">
             <Button x:Name="SaveToListObjects" 
                     Content="Изменить" 
-                    Width="100" 
                     Margin="0,15,10,15"
                     Style="{StaticResource ButtonStyle}"
                     Click="OnClickChange"/>
             <Button x:Name="SaveToFile" 
-                    Content="Сохранить в файл" 
-                    Width="165"
+                    Content="Сохранить в файл"
                     Margin="10,15,10,15" 
                     Style="{StaticResource ButtonStyle}" 
                     Click="OnClickSaveToFiles"/>
             <Button x:Name="AddClient" 
                     Content="Добавить клиента" 
-                    Width="165" 
                     Margin="10,15,10,15" 
                     Style="{StaticResource ButtonStyle}"
                     Click="OnClickAddClient"/>
+        </StackPanel>
+        <StackPanel Grid.Row="3" 
+                    Grid.Column="1"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+            <Button x:Name="BtnExit" 
+                    Content="Выйти" 
+                    Margin="450,15,10,15"
+                    Style="{StaticResource ButtonStyle}"
+                    Click="OnClickExit"/>
         </StackPanel>
 
     </Grid>

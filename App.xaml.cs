@@ -15,12 +15,7 @@ namespace Company
     {
         void App_Startup(object sender, StartupEventArgs e)
         {
-            MainWindow mainWindow = new MainWindow();
-            //mainWindow.clientsList = new Clients(mainWindow);
-            //mainWindow.changesList = new Changes(mainWindow);
-            //mainWindow.Show();
+
         }
-
-
     }
 }
