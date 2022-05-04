@@ -192,7 +192,7 @@ namespace Company
             File.WriteAllText(path, root);
         }
         /// <summary>
-        /// Чтение строки из файла
+        /// Чтение json строки из файла
         /// </summary>
         public string ReadFromFile(string fileName)
         {
@@ -366,7 +366,7 @@ namespace Company
             return exist;
         }
         /// <summary>
-        /// Проверка на наличие введенного телефона в базе
+        /// Проверка на наличие введенного паспорта в базе
         /// </summary>
         public bool CheckPassportExistInBase(ObservableCollection<Client> clients, string passportNumberText)
         {

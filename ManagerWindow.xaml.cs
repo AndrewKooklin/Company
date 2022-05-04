@@ -1,17 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Company
 {
@@ -24,8 +18,8 @@ namespace Company
         public ChangesRepository changesRepository;
 
         Manager newManager = new Manager();
-        List<string> textList = new List<string>();
         Client client;
+        List<string> textList = new List<string>();
         string rootClients;
         string rootChanges;
         public int index;
@@ -69,18 +63,13 @@ namespace Company
         /// </summary>
         private void Row_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            client = new Client();
             client = (Client)clientItems.SelectedItem;
 
             if (client == null)
             {
                 return;
             }
-
-            firstName.Visibility = Visibility.Visible;
-            lastName.Visibility = Visibility.Visible;
-            fathersName.Visibility = Visibility.Visible;
-            phone.Visibility = Visibility.Visible;
-            passportNumber.Visibility = Visibility.Visible;
 
             firstName.Text = client.FirstName;
             lastName.Text = client.LastName;
@@ -142,16 +131,9 @@ namespace Company
         {
             if (clientItems.SelectedItem != null)
             {
-                List<Client> clients = new List<Client>();
-
-                foreach (var item in clientItems.Items)
-                {
-                    clients.Add(item as Client);
-                }
-
                 index = clientItems.SelectedIndex;
 
-                var client = clients.ElementAt(index);
+                var client = clientsRepository.ClientsList.ElementAt(index);
 
                 if (newManager.CheckTextBoxIsNullOrEmpty(firstName.Text, "Имя")) return;
                 if (newManager.CheckTextBoxIsNullOrEmpty(lastName.Text, "Фамилия")) return;
@@ -175,7 +157,7 @@ namespace Company
                 textList = new List<string>() { lastName.Text, firstName.Text,
                                                 fathersName.Text, phone.Text, passportNumber.Text };
 
-                var fieldsList = FieldsChanged(textList, index);
+                var fieldsList = FieldsChanged(textList, client);
                 if (!String.IsNullOrEmpty(fieldsList))
                 {
                     var newRecordChange = newManager.NewRecord(fieldsList, Change.DataChange.ChangingRecord, position);
@@ -224,7 +206,7 @@ namespace Company
             {
                 return;
             }
-            Client newClient = newManager.AddClient(firstName.Text.Trim(),
+            var newClient = newManager.AddClient(firstName.Text.Trim(),
                            lastName.Text.Trim(), fathersName.Text.Trim(),
                            phoneNumber, passportNumber.Text.Trim());
             clientsRepository.ClientsList.Add(newClient);
@@ -239,21 +221,15 @@ namespace Company
             clientItems.ItemsSource = clientsRepository.ClientsList;
             recordItems.ItemsSource = changesRepository.ChangesList;
         }
-
-        public string FieldsChanged(List<string> textList, int index)
+        /// <summary>
+        /// Проверка какие поля TextBox были изменены
+        /// </summary>
+        /// <returns>Строка с названиями полей</returns>
+        public string FieldsChanged(List<string> textList, Client client)
         {
             string totalString = "";
 
             List<string> fieldNames = new List<string>() { "Фамилия ", "Имя ", "Отчество ", "Телефон ", "Паспорт" };
-
-            List<Client> clients = new List<Client>();
-
-            foreach (var item in clientItems.Items)
-            {
-                clients.Add(item as Client);
-            }
-
-            var client = clients.ElementAt(index);
 
             List<string> clientProperty = new List<string>()
             {
@@ -271,7 +247,10 @@ namespace Company
             }
             return totalString;
         }
-
+        /// <summary>
+        /// Проверка какие поля были добавлены при создании нового клиента
+        /// </summary>
+        /// <returns>Строку с названиями полей</returns>
         public string CheckFieldsAdded()
         {
             string totalString = "Фамилия Имя Телефон Паспорт";
@@ -284,7 +263,10 @@ namespace Company
             }
             return totalString;
         }
-
+        /// <summary>
+        /// Действия при нажатии на кнопку "Сохранить в файл"
+        /// Сохранение клиентов и изменений в файлы
+        /// </summary>
         private void OnClickSaveToFiles(object sender, RoutedEventArgs e)
         {
             if (clientsRepository.ClientsList.Count <= 0)
@@ -356,11 +338,12 @@ namespace Company
                 passportNumber.Text = "";
             }
         }
-
+        /// <summary>
+        /// Действия при нажатии на кнопку "Выйти"
+        /// </summary>
         private void OnClickExit(object sender, RoutedEventArgs e)
         {
-
             Close();
-        }
+        }   
     }
 }

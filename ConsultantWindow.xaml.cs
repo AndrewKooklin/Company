@@ -17,6 +17,7 @@ namespace Company
         public ClientsRepository clientsRepository;
         public ChangesRepository changesRepository;
         Consultant newConsultant = new Consultant();
+        Client client;
         Dictionary<int, long> phoneChanges = new Dictionary<int, long>();
         string rootClients;
         string rootChanges;
@@ -61,13 +62,14 @@ namespace Company
         /// </summary>
         private void Row_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Client client = (Client)clientItems.SelectedItem;
+            client = new Client();
+            client = (Client)clientItems.SelectedItem;
 
             if (client == null)
             {
                 return;
             }
-            phone.Visibility = Visibility.Visible;
+
             phone.Text = client.Phone.ToString();
         }
         /// <summary>
@@ -103,16 +105,9 @@ namespace Company
         {
             if (clientItems.SelectedItem != null)
             {
-                List<Client> clients = new List<Client>();
-
-                foreach (var item in clientItems.Items)
-                {
-                    clients.Add(item as Client);
-                }
-
                 index = clientItems.SelectedIndex;
 
-                var client = clients.ElementAt(index);
+                var client = clientsRepository.ClientsList.ElementAt(index);
 
                 bool parse = newConsultant.CheckParsePhone(phone.Text, out long phoneNumber);
                 if (parse && phoneNumber != 0)
@@ -125,7 +120,7 @@ namespace Company
                     return;
                 }
 
-                string fieldsList = CheckFieldPhoneChanged(index);
+                string fieldsList = CheckFieldPhoneChanged(client);
                 if (!String.IsNullOrEmpty(fieldsList))
                 {
                     var newRecordChange = newConsultant.NewRecord(fieldsList, Change.DataChange.ChangingRecord, position);
@@ -151,7 +146,7 @@ namespace Company
                     phoneChanges.Add(index, phoneNumber);
                 }
 
-                clientItems.ItemsSource = clients;
+                clientItems.ItemsSource = clientsRepository.ClientsList;
                 recordItems.ItemsSource = changesRepository.ChangesList;
             }
             else
@@ -167,18 +162,9 @@ namespace Company
         /// <returns>
         /// Название поля
         /// </returns>
-        public string CheckFieldPhoneChanged(int index)
+        public string CheckFieldPhoneChanged(Client client)
         {
             string totalString;
-
-            List<Client> clients = new List<Client>();
-
-            foreach (var item in clientItems.Items)
-            {
-                clients.Add(item as Client);
-            }
-
-            var client = clients.ElementAt(index);
 
             if (!String.Equals(client.Phone.ToString(), phone.Text.Trim()))
             {
@@ -191,6 +177,7 @@ namespace Company
             return totalString;
         }
         /// <summary>
+        /// Действия при нажатии на кнопку "Сохранить в файл"
         /// Сохранение измененных телефонов и новых записей в файлы
         /// </summary>
         private void OnClickSaveToFiles(object sender, RoutedEventArgs e)
@@ -225,28 +212,6 @@ namespace Company
 
             MessageBox.Show("Файл сохранен", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
         }
-
-        /// <summary>
-        /// Проверка корректности введенного номера паспорта
-        /// </summary>
-        private void OnPassportChanged(object sender, TextChangedEventArgs e)
-        {
-            string pNumber = passportNumber.Text.ToString();
-
-            if (!String.IsNullOrEmpty(pNumber))
-            {
-                Regex regex = new Regex(@"\d\d\d\d-\d\d\d\d\d\d$");
-                var bc = new BrushConverter();
-                if (regex.IsMatch(passportNumber.Text))
-                {
-                    passportNumber.Background = (Brush)bc.ConvertFrom("#abffbe");
-                }
-                else
-                {
-                    passportNumber.Background = (Brush)bc.ConvertFrom("#ffa4a4");
-                }
-            }
-        }
         /// <summary>
         /// Очистка поля TextBox Phone при получении фокуса элементом
         /// </summary>
@@ -257,7 +222,9 @@ namespace Company
                 phone.Text = "";
             }
         }
-
+        /// <summary>
+        /// Действия при нажатии на кнопку "Выйти"
+        /// </summary>
         private void OnClickExit(object sender, RoutedEventArgs e)
         {
             Close();

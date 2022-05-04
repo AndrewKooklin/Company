@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace Company
 {
@@ -20,16 +18,6 @@ namespace Company
                                     passportNumber);
 
             return client;
-        }
-
-        new void ChangeClientData() 
-        { 
-        }
-        new void SaveToFiles()
-        {
-
-        }
-
-        
+        }   
     }  
 }

@@ -8,14 +8,5 @@ namespace Company
         {
             
         }
-
-        public void ChangeClientData()
-        {
-
-        }
-        public void SaveToFiles()
-        {
-
-        }
     }
 }

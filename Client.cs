@@ -56,8 +56,6 @@ namespace Company
             return passport;
         }
 
-        //protected static Random rand = new Random();
-
         [JsonConstructor]
         public Client(string firstName, string lastName,
                         string fathersName, long phone,

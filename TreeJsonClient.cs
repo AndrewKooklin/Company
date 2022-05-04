@@ -5,6 +5,9 @@ namespace Company
 {
     public class TreeJsonClient
     {
+        /// <summary>
+        /// Создание дерева хранения клиентов
+        /// </summary>
         public TreeJsonClient(ObservableCollection<Client> clientsList)
         {
             ClientsList = new ObservableCollection<Client>();
