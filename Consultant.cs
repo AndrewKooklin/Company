@@ -260,7 +260,7 @@ namespace Company
         public bool CheckPhoneMatchesPattern(string phoneText)
         {
             bool check;
-            Regex regex = new Regex(@"\d\d\d\d\d\d\d\d\d\d\d$");
+            Regex regex = new Regex(@"\d(11)$");
             if (regex.IsMatch(phoneText.Trim()))
             {
                 check = true;

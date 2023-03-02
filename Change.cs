@@ -11,7 +11,7 @@ namespace Company
         {
             DateTime dateTime = DateTime.Now;
             this.dateTime = dateTime;
-            this.TotalString = totalString;
+            this.FieldsChanged = totalString;
 
             switch (dataChange)
             {
@@ -56,7 +56,7 @@ namespace Company
         public Change(DateTime dateTime, string totalString, string type, string position)
         {
             this.dateTime = dateTime;
-            TotalString = totalString;
+            FieldsChanged = totalString;
             Type = type;
             Position = position;
         }
@@ -70,7 +70,7 @@ namespace Company
         [JsonProperty]
         public DateTime dateTime { get; set; }
         [JsonProperty]
-        public string TotalString { get; set; }
+        public string FieldsChanged { get; set; }
         [JsonProperty]
         public string Type { get; set; }
         [JsonProperty]

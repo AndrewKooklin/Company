@@ -81,7 +81,7 @@ namespace Company
             bool parse = long.TryParse(phone.Text, out long phoneNumber);
             if (parse)
             {
-                Regex regex = new Regex(@"\d\d\d\d\d\d\d\d\d\d\d$");
+                Regex regex = new Regex(@"\d{11}$");
 
                 if (regex.IsMatch(phone.Text) && phoneNumber > 10000000000 && phoneNumber < 99999999999)
                 {

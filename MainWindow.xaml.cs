@@ -14,7 +14,7 @@ namespace Company
             InitializeComponent();
         }
         /// <summary>
-        /// Обработка события выбора клиента из списка
+        /// Обработка события выбора сотрудника из списка
         /// </summary>
         private void OnSelectedChanged(object sender, SelectionChangedEventArgs e)
         {

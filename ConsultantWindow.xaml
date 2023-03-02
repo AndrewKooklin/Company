@@ -248,7 +248,7 @@
                                                Margin="0" 
                                                TextAlignment="Center"/>
                                     <TextBlock x:Name="Data" 
-                                               Text="{Binding TotalString}" 
+                                               Text="{Binding FieldsChanged}" 
                                                Width="120" 
                                                Margin="0" 
                                                TextAlignment="Center" 
@@ -326,6 +326,15 @@
                     Style="{StaticResource ButtonStyle}"
                     Click="OnClickExit"/>
         </StackPanel>
+        <Label 
+            Content="Поле для изменения телефона" 
+            HorizontalAlignment="Left" 
+            Margin="304,217,0,0" 
+            Grid.Row="1" 
+            VerticalAlignment="Top" 
+            Width="266"
+            FontFamily="Verdana"
+            FontSize="14"/>
 
     </Grid>
 </Window>
